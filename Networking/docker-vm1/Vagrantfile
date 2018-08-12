@@ -1,0 +1,7 @@
+Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+
+Vagrant.configure("2") do |config|
+  config.vm.provision "docker" do |d|
+    d.pull_images "ubuntu:latest"
+  end
+end
