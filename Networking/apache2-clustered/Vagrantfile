@@ -1,0 +1,27 @@
+Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+
+Vagrant.configure("2") do |config|
+
+    config.vm.define "web1" do |web1|
+        web1.vm.box = "hashicorp/precise64"
+        web1.vm.provision :shell, path: "bootstrap.sh"
+        web1.vm.network :private_network, ip: "192.168.50.4"
+        web1.vm.network :forwarded_port, guest:80 , host: 9874
+        web1.vm.synced_folder "./web1", "/var/www/"
+    end
+    config.vm.define "web2" do |web2|
+            web2.vm.box = "hashicorp/precise64"
+            web2.vm.provision :shell, path: "bootstrap.sh"
+            web2.vm.network :private_network, ip: "192.168.50.5"
+            web2.vm.network :forwarded_port, guest:80 , host: 9875
+            web2.vm.synced_folder "./web2", "/var/www/"
+    end
+    config.vm.define "web3" do |web3|
+            web3.vm.box = "hashicorp/precise64"
+            web3.vm.provision :shell, path: "bootstrap.sh"
+            web3.vm.network :private_network, ip: "192.168.50.6"
+            web3.vm.network :forwarded_port, guest:80 , host: 9876
+            web3.vm.synced_folder "./web3", "/var/www/"
+    end
+
+end
